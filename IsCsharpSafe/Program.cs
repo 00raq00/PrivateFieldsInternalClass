@@ -12,12 +12,12 @@ namespace PrivateFieldsInternalClass
 public   class Program
   {
 
+ private static  int Value = 1000;
     static void Main(string[] args)
     {
       var PublicClassInternalFields = new PublicClassInternalField();
       var PublicClassPrivateFields = new PublicClassPrivateFields();
 
-      int Value = 1000;
       string Name = "internalInt";
 
       ReflectionHelper.GetAndSetValue(PublicClassInternalFields, Value, Name);

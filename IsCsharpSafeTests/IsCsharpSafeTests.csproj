@@ -46,6 +46,7 @@
       <HintPath>..\packages\MSTest.TestFramework.1.2.0\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -70,6 +71,10 @@
     <ProjectReference Include="..\ReflectionHelper\ReflectionHelper.csproj">
       <Project>{DAA6399D-8F9D-4E52-A8EF-126FCD6D94E7}</Project>
       <Name>ReflectionHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WindowsFormsWithSafeKey\WindowsFormsWithSafeKey.csproj">
+      <Project>{1e686102-e0c3-44d5-83aa-c2b81b1b5be8}</Project>
+      <Name>WindowsFormsWithSafeKey</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

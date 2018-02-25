@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsCsharpSafeTests", "IsCsha
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReflectionHelper", "ReflectionHelper\ReflectionHelper.csproj", "{DAA6399D-8F9D-4E52-A8EF-126FCD6D94E7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsWithSafeKey", "WindowsFormsWithSafeKey\WindowsFormsWithSafeKey.csproj", "{1E686102-E0C3-44D5-83AA-C2B81B1B5BE8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{DAA6399D-8F9D-4E52-A8EF-126FCD6D94E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DAA6399D-8F9D-4E52-A8EF-126FCD6D94E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DAA6399D-8F9D-4E52-A8EF-126FCD6D94E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E686102-E0C3-44D5-83AA-C2B81B1B5BE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E686102-E0C3-44D5-83AA-C2B81B1B5BE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E686102-E0C3-44D5-83AA-C2B81B1B5BE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E686102-E0C3-44D5-83AA-C2B81B1B5BE8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

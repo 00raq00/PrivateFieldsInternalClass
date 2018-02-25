@@ -50,15 +50,27 @@ namespace ReflactionHelper
 
     public static object GetNonPublicIntFiledValue(object obj, string fieldName, Type type)
     {
-      FieldInfo field = type.GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+      FieldInfo field = type.GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance);
 
       return field.GetValue(obj);
+    }
+    public static IEnumerable<MethodInfo> GetNonPublicMethods(string methodName, Type type)
+    {
+      var methods = type.GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.CreateInstance | System.Reflection.BindingFlags.Static).Where(x => x.Name.Equals(methodName));
+
+      return methods;
+    }
+    public static object InvokeNonPublicMethod(object obj, string methodName, Type type, object[] param)
+    {
+      var method = GetNonPublicMethods(methodName,type).FirstOrDefault();
+
+      return method.Invoke(obj,param);
     }
 
 
     public static void SetNonPublicIntFiledValue(object obj, object val, string fieldName, Type type)
     {
-      FieldInfo field = type.GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+      FieldInfo field = type.GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance);
 
       field.SetValue(obj, val);
     }

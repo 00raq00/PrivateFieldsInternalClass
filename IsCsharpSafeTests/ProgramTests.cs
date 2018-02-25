@@ -5,8 +5,11 @@ using ReflactionHelper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using WindowsFormsWithSafeKey;
 
 namespace PrivateFieldsInternalClass.Tests
 {
@@ -106,6 +109,56 @@ namespace PrivateFieldsInternalClass.Tests
       Assert.IsNotNull(value);
       Assert.IsTrue(value is Int32);
       Assert.AreEqual(value, 1234);
+    }
+
+
+    [TestMethod()]
+    public void RunProgramMainWithDifferentValue()
+    {
+
+      Application.EnableVisualStyles();
+      Application.SetCompatibleTextRenderingDefault(false);
+      Form1 program = new Form1();
+     object val= ReflectionHelper.GetNonPublicIntFiledValue(program, "key", program.GetType());
+
+      Assert.AreEqual(val, "PRIVATE KEY");
+
+      Task.Run(async () =>
+      {
+        await Task.Delay(2000);
+        MethodInvoker del = delegate
+        {
+          ReflectionHelper.InvokeNonPublicMethod(program, "button1_Click", program.GetType(), new object[] { new object(), new EventArgs() });
+        };
+
+        program.Invoke(del);
+        await Task.Delay(2000);
+        program.Close();
+      });
+
+      program.ShowDialog();
+      program = new Form1();
+
+      ReflectionHelper.SetNonPublicIntFiledValue(program, "666", "key", program.GetType());
+
+       val = ReflectionHelper.GetNonPublicIntFiledValue(program, "key", program.GetType());
+
+      Assert.AreEqual(val, "666");
+
+      Task.Run(async () =>
+      {
+       await Task.Delay(2000);
+        MethodInvoker del = delegate
+        {
+          ReflectionHelper.InvokeNonPublicMethod(program, "button1_Click", program.GetType(), new object[] { new object(), new EventArgs() });
+        };
+
+        program.Invoke(del);
+        await Task.Delay(2000);
+        program.Close();
+      });
+
+      program.ShowDialog();    
     }
   }
 }
