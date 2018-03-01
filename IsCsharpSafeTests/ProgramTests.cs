@@ -78,10 +78,9 @@ namespace PrivateFieldsInternalClass.Tests
       Assert.AreEqual(value, 1234);
     }
 
-    [TestMethod()]
+    [TestMethod]
     public void CreateInternalClassInstance()
     {
-
       object InternalClassPublicConstructorPrivateField = ReflectionHelper.CreateInstanceOfInternalClass("InternalClasses", "InternalClasses", "InternalClassPublicConstructorPrivateField");
       Assert.IsNotNull(InternalClassPublicConstructorPrivateField);
 
@@ -112,7 +111,7 @@ namespace PrivateFieldsInternalClass.Tests
     }
 
 
-    [TestMethod()]
+    [TestMethod]
     public void RunProgramMainWithDifferentValue()
     {
 
@@ -159,6 +158,93 @@ namespace PrivateFieldsInternalClass.Tests
       });
 
       program.ShowDialog();    
+    }
+
+
+    [TestMethod()]
+    public void CreateInternalClassInstanceAndSetReadOnlyFields()
+
+    {
+      object InternalCallReadonlyVsConst = ReflectionHelper.CreateInstanceOfInternalClass("InternalClasses", "InternalClasses", "InternalCallReadonlyVsConst");
+      Assert.IsNotNull(InternalCallReadonlyVsConst);
+
+      object privateReadonlyInt = ReflectionHelper.GetNonPublicIntFiledValue(InternalCallReadonlyVsConst, "privateReadonlyInt", InternalCallReadonlyVsConst.GetType());
+      Assert.IsNotNull(privateReadonlyInt);
+      Assert.IsTrue(privateReadonlyInt is Int32);
+      Assert.AreEqual(privateReadonlyInt, 100);
+
+      privateReadonlyInt = ReflectionHelper.GetAndSetValue(InternalCallReadonlyVsConst, 1234, "privateReadonlyInt");
+      Assert.IsNotNull(privateReadonlyInt);
+      Assert.IsTrue(privateReadonlyInt is Int32);
+      Assert.AreEqual(privateReadonlyInt, 1234);
+
+
+      object privateReadonlyString = ReflectionHelper.GetNonPublicIntFiledValue(InternalCallReadonlyVsConst, "privateReadonlyString", InternalCallReadonlyVsConst.GetType());
+      Assert.IsNotNull(privateReadonlyString);
+      Assert.IsTrue(privateReadonlyString is string);
+      Assert.AreEqual(privateReadonlyString, "100");
+
+      privateReadonlyString = ReflectionHelper.GetAndSetValue(InternalCallReadonlyVsConst, "1234", "privateReadonlyString");
+      Assert.IsNotNull(privateReadonlyString);
+      Assert.IsTrue(privateReadonlyString is string);
+      Assert.AreEqual(privateReadonlyString, "1234");
+    }
+
+    [TestMethod()]
+    public void CreateInternalClassInstanceAndSetReadOnlyStaticFields()
+    {
+      object InternalCallReadonlyVsConst = ReflectionHelper.CreateInstanceOfInternalClass("InternalClasses", "InternalClasses", "InternalCallReadonlyVsConst");
+      Assert.IsNotNull(InternalCallReadonlyVsConst);
+
+      object privateReadonlyInt = ReflectionHelper.GetNonPublicIntFiledValue(InternalCallReadonlyVsConst, "privateStaticReadonlyInt", InternalCallReadonlyVsConst.GetType());
+      Assert.IsNotNull(privateReadonlyInt);
+      Assert.IsTrue(privateReadonlyInt is Int32);
+      Assert.AreEqual(privateReadonlyInt, 100);
+
+      privateReadonlyInt = ReflectionHelper.GetAndSetValue(InternalCallReadonlyVsConst, 1234, "privateStaticReadonlyInt");
+      Assert.IsNotNull(privateReadonlyInt);
+      Assert.IsTrue(privateReadonlyInt is Int32);
+      Assert.AreEqual(privateReadonlyInt, 1234);
+
+
+      object privateReadonlyString = ReflectionHelper.GetNonPublicIntFiledValue(InternalCallReadonlyVsConst, "privateStaticReadonlyString", InternalCallReadonlyVsConst.GetType());
+      Assert.IsNotNull(privateReadonlyString);
+      Assert.IsTrue(privateReadonlyString is string);
+      Assert.AreEqual(privateReadonlyString, "100");
+
+      privateReadonlyString = ReflectionHelper.GetAndSetValue(InternalCallReadonlyVsConst, "1234", "privateStaticReadonlyString");
+      Assert.IsNotNull(privateReadonlyString);
+      Assert.IsTrue(privateReadonlyString is string);
+      Assert.AreEqual(privateReadonlyString, "1234");
+    }
+
+
+    [TestMethod()]
+    public void CreateInternalClassInstanceAndSetConstFields()
+    {
+      object InternalCallReadonlyVsConst = ReflectionHelper.CreateInstanceOfInternalClass("InternalClasses", "InternalClasses", "InternalCallReadonlyVsConst");
+      Assert.IsNotNull(InternalCallReadonlyVsConst);
+
+      object privateConstInt = ReflectionHelper.GetNonPublicIntFiledValue(InternalCallReadonlyVsConst, "privateConstInt", InternalCallReadonlyVsConst.GetType());
+      Assert.IsNotNull(privateConstInt);
+      Assert.IsTrue(privateConstInt is Int32);
+      Assert.AreEqual(privateConstInt, 100);
+
+      Assert.ThrowsException< FieldAccessException>(()=> privateConstInt = ReflectionHelper.GetAndSetValue(InternalCallReadonlyVsConst, 1234, "privateConstInt"));
+      Assert.IsNotNull(privateConstInt);
+      Assert.IsTrue(privateConstInt is Int32);
+      Assert.AreEqual(privateConstInt, 100);
+
+
+      object privateConstString = ReflectionHelper.GetNonPublicIntFiledValue(InternalCallReadonlyVsConst, "privateConstString", InternalCallReadonlyVsConst.GetType());
+      Assert.IsNotNull(privateConstString);
+      Assert.IsTrue(privateConstString is string);
+      Assert.AreEqual(privateConstString, "100");
+
+      Assert.ThrowsException<FieldAccessException>(() => privateConstString = ReflectionHelper.GetAndSetValue(InternalCallReadonlyVsConst, "1234", "privateConstString"));
+      Assert.IsNotNull(privateConstString);
+      Assert.IsTrue(privateConstString is string);
+      Assert.AreEqual(privateConstString, "100");
     }
   }
 }
